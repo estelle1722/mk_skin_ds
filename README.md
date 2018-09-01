@@ -16,15 +16,19 @@ Please run the script `main.py`:
 python main.py
 ```
 
-In this cript,a original skin image will be cropped from corners,i.e.:the upper left corner,the lower left corner,the top right corner and the lower right corner.In the same time,a corresponding image from ImageNet will be selected and resized.Then these two images are merged into a new image and saved to the disk.
+In this script,a original skin image will be cropped from corners,i.e.:the upper left corner,the lower left corner,the top right corner and the lower right corner.In the same time,a corresponding image from ImageNet will be selected and resized.Then a portion of the former will be replaced with the latter and saved to the disk.
 
-In  fact,because of randomness in the processing of sampling,not all images are what we needs.Thus I just remain typical images.Running the script `data_cleaning.py will` achieve this purpose:
+Next,
+
+In  fact,because of randomness in the processing of sampling,not all images are what we needs.Thus I just remain typical images.Running the script `data_cleaning.py` will achieve this purpose:
 
 ```bash
 python data_cleaning.py
 ```
 
-Note that I use *Sobel* operator to compute first-order gradient and keep images with small gradient because slow gradient means no dramatic changes in brightness in general.After passing through the steps above,I have picked up enough images.Next all I need to do is just to split these images into two part and use it to train neural network.
+Note that I use *Sobel* operator to compute first-order gradient and keep images with small gradient because images with slow gradient means no dramatic changes in brightness in general.After passing through the steps above,I have picked up satisfying images.Next all I need to do is just to split these images into two part and use it to train neural network.
+
+Please contact me if there are any questions.
 
 ## reference
 
