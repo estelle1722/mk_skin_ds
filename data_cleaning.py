@@ -3,6 +3,7 @@ import os
 import numpy as np
 
 
+
 def compute_gradient(path):
     img = cv2.imread(path)
     sobel_x = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=5)
@@ -24,5 +25,8 @@ def main(path, keep=1200):
 
 
 if __name__ == '__main__':
-    main('./ds/normal')
-    main('./ds/lesion')
+    # main('./ds/8_8/normal')
+    main('./ds/8_8/lesion')
+
+    main('./ds/4_4/normal')
+    main('./ds/4_4/lesion')
