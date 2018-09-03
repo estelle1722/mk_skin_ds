@@ -12,8 +12,9 @@ def rename(path='./isic_2017'):
 def clear(path):
     if os.path.exists(path):
         shutil.rmtree(path)
-    os.mkdir(path)
+    os.makedirs(path)
 
 def copy(source_path, target_path):
     assert os.path.exists(source_path)
     shutil.copy(source_path, target_path)
+
