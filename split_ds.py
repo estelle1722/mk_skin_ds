@@ -45,6 +45,9 @@ class Split(object):
 
 
 if __name__ == '__main__':
-    Split({'normal': './ds/normal', 'lesion': './ds/lesion'},
-          './ds/train',
-          './ds/val')()
+    # Split({'normal': './ds/8_8/normal', 'lesion': './ds/8_8/lesion'},
+    #       './ds/8_8/train',
+    #       './ds/8_8/val')()
+    Split({'normal': './ds/4_4/normal', 'lesion': './ds/4_4/lesion'},
+          './ds/4_4/train',
+          './ds/4_4/val')()
