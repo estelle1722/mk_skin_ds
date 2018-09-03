@@ -36,7 +36,7 @@ def crop_skin(im, height=64, width=64):
     return top_left, top_right, button_left, button_right
 
 
-def main(skin_data_dir, image_net_data_dir, target_path='ds'):
+def main(skin_data_dir, image_net_data_dir, target_path='ds/8_8'):
     """
     TODO: refactoring this function
 
@@ -44,6 +44,9 @@ def main(skin_data_dir, image_net_data_dir, target_path='ds'):
     path_lst = [os.path.join(skin_data_dir, name) for name in os.listdir(skin_data_dir)]
     image_net_lst = [os.path.join(image_net_data_dir, name) for name in os.listdir(image_net_data_dir)]
     clear(target_path)
+    phase = ['normal', 'lesion']
+    for label in phase:
+        clear(os.path.join(target_path, label))
     thred = len(path_lst) // 2
     idx = 0
 
@@ -52,45 +55,46 @@ def main(skin_data_dir, image_net_data_dir, target_path='ds'):
         top_left, top_right, button_left, button_right = crop_skin(im)
         if nums < thred:
             # the lesion area nums with 1, 2, 3 account for 60%,30% and 10% respectively.
-            rand_arr = [1, 2, 3, 2, 1, 1, 1, 2, 1, 1, 2]
-            for _ in range(rand_arr[random.randint(0, 9)]):
+            # rand_arr = [1, 2, 3, 2, 1, 1, 1, 2, 1, 1, 2]
+            rand_arr = [1]
+            for _ in range(rand_arr[random.randint(0, len(rand_arr)-1)]):
                 image_net_im = resize(image_net_lst[idx])
                 top_left = attach(top_left, image_net_im)
                 idx += 1
-            saved_path = '%s/lesion_top_left_%s' % (target_path, path.split('/')[-1])
+            saved_path = '%s/lesion/lesion_top_left_%s' % (target_path, path.split('/')[-1])
             cv2.imwrite(saved_path, top_left)
 
-            for _ in range(rand_arr[random.randint(0, 9)]):
+            for _ in range(rand_arr[random.randint(0, len(rand_arr)-1)]):
                 image_net_im = resize(image_net_lst[idx])
                 top_right = attach(top_right, image_net_im)
                 idx += 1
-            saved_path = '%s/lesion_top_right_%s' % (target_path, path.split('/')[-1])
+            saved_path = '%s/lesion/lesion_top_right_%s' % (target_path, path.split('/')[-1])
             cv2.imwrite(saved_path, top_right)
 
-            for _ in range(rand_arr[random.randint(0, 9)]):
+            for _ in range(rand_arr[random.randint(0, len(rand_arr)-1)]):
                 image_net_im = resize(image_net_lst[idx])
                 button_left = attach(button_left, image_net_im)
                 idx += 1
-            saved_path = '%s/lesion_button_left_%s' % (target_path, path.split('/')[-1])
+            saved_path = '%s/lesion/lesion_button_left_%s' % (target_path, path.split('/')[-1])
             cv2.imwrite(saved_path, button_left)
 
-            for _ in range(rand_arr[random.randint(0, 9)]):
+            for _ in range(rand_arr[random.randint(0, len(rand_arr)-1)]):
                 image_net_im = resize(image_net_lst[idx])
                 button_right = attach(button_right, image_net_im)
                 idx+=1
-            saved_path = '%s/lesion_button_right_%s' % (target_path, path.split('/')[-1])
+            saved_path = '%s/lesion/lesion_button_right_%s' % (target_path, path.split('/')[-1])
             cv2.imwrite(saved_path, button_right)
         else:
-            saved_path = '%s/normal_top_left_%s' % (target_path, path.split('/')[-1])
+            saved_path = '%s/normal/normal_top_left_%s' % (target_path, path.split('/')[-1])
             cv2.imwrite(saved_path, top_left)
 
-            saved_path = '%s/normal_top_right_%s' % (target_path, path.split('/')[-1])
+            saved_path = '%s/normal/normal_top_right_%s' % (target_path, path.split('/')[-1])
             cv2.imwrite(saved_path, top_right)
 
-            saved_path = '%s/normal_button_left_%s' % (target_path, path.split('/')[-1])
+            saved_path = '%s/normal/normal_button_left_%s' % (target_path, path.split('/')[-1])
             cv2.imwrite(saved_path, button_left)
 
-            saved_path = '%s/normal_button_right_%s' % (target_path, path.split('/')[-1])
+            saved_path = '%s/normal/normal_button_right_%s' % (target_path, path.split('/')[-1])
             cv2.imwrite(saved_path, button_right)
 
 
@@ -103,10 +107,12 @@ def attach(skin_im, image_net_im):
     return skin_im
 
 
-def resize(path, size=((2, 2), (4, 4), (8, 8))):
+def resize(path, size=((4, 4), (4, 4), (4, 4))):
     im = cv2.imread(path)
     return cv2.resize(im, size[random.randint(0, len(size) - 1)])
 
 
 if __name__ == '__main__':
-    main('isic_2017', 'image_net')
+    # main('isic_2017', 'image_net', 'ds/8_8')
+
+    main('isic_2017', 'image_net', 'ds/4_4')
